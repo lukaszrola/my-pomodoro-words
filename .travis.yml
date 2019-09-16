@@ -21,8 +21,6 @@ cache:
 
 script:
   - ./gradlew clean test
-scrip:
-  - if [branch = master]; then
-    ./gradlew bootJar;
-    ./gradlew dockerPush;
-  fi
+  - ./gradlew bootJar;
+  - ./gradlew dockerPush;
+
