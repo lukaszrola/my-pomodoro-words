@@ -5,6 +5,9 @@ jdk:
   - oraclejdk11
   - openjdk11
 
+services:
+  - docker
+
 before_install:
  - chmod +x gradlew
 
@@ -18,3 +21,8 @@ cache:
 
 script:
   - ./gradlew clean test
+scrip:
+  - if [branch = master]; then
+    ./gradlew bootJar;
+    ./gradlew dockerPush;
+  fi
