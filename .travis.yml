@@ -22,5 +22,6 @@ cache:
 script:
   - ./gradlew clean test
   - ./gradlew bootJar;
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - ./gradlew dockerPush;
 
