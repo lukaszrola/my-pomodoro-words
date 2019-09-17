@@ -18,13 +18,14 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-stages:
-  - name: build and test
-      - ./gradlew clean test
+jobs:
+  include:
+    - stage: build and test
+        - ./gradlew clean test
 
-  - name: push docker hub
-    if: branch = master
-      - ./gradlew bootJar;
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - ./gradlew dockerPush;
+    - stage: push docker hub
+      if: branch = master
+        - ./gradlew bootJar;
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - ./gradlew dockerPush;
 
