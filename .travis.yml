@@ -8,7 +8,7 @@ services:
   - docker
 
 before_install:
- - chmod +x gradlew
+  - chmod +x gradlew
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -18,16 +18,13 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-jobs:
-  include:
-  - stage: build and test
-    script:
-    - ./gradlew clean test
+stages:
+  - name: build and test
+      - ./gradlew clean test
 
-  - stage: push docker hub
-  - if: branch = master
-    script:
-    - ./gradlew bootJar;
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - ./gradlew dockerPush;
+  - name: push docker hub
+    if: branch = master
+      - ./gradlew bootJar;
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - ./gradlew dockerPush;
 
