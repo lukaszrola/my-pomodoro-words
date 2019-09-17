@@ -21,7 +21,12 @@ cache:
 
 script:
   - ./gradlew clean test
-  - ./gradlew bootJar;
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - ./gradlew dockerPush;
+
+stages:
+  - name: push docker hub
+  - if branch = master
+  script:
+    - ./gradlew bootJar;
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - ./gradlew dockerPush;
 
