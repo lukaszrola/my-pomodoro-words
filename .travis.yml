@@ -2,11 +2,13 @@ os: linux
 
 language: java
 jdk:
-  - oraclejdk11
   - openjdk11
 
+services:
+  - docker
+
 before_install:
- - chmod +x gradlew
+  - chmod +x gradlew
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -16,5 +18,13 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-script:
-  - ./gradlew clean test
+stages:
+  - name: build and test
+      - ./gradlew clean test
+
+  - name: push docker hub
+    if: branch = master
+      - ./gradlew bootJar;
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - ./gradlew dockerPush;
+
