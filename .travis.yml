@@ -25,7 +25,7 @@ jobs:
     - ./gradlew clean test
 
   - stage: push docker hub
-  - if: branch = master
+  - if: (NOT type IN (pull_request)) AND (branch = master)
     script:
     - ./gradlew bootJar;
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
