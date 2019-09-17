@@ -23,8 +23,6 @@ jobs:
   - stage: build and test
     script:
     - ./gradlew clean test
-
-  - stage: push docker hub
   - if: (NOT type IN (pull_request)) AND (branch = master)
     script:
     - ./gradlew bootJar;
