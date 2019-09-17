@@ -2,7 +2,6 @@ os: linux
 
 language: java
 jdk:
-  - oraclejdk11
   - openjdk11
 
 services:
@@ -24,6 +23,7 @@ jobs:
   - stage: build and test
     script:
     - ./gradlew clean test
+
   - stage: push docker hub
   - if: branch = master
     script:
