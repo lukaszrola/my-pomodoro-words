@@ -26,5 +26,5 @@ jobs:
   - if: (NOT type IN (pull_request)) AND (branch = master)
     script:
     - ./gradlew bootJar;
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
     - ./gradlew dockerPush;
