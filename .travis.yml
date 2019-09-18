@@ -25,6 +25,6 @@ jobs:
     - ./gradlew clean test
   - if: (branch = master)
     script:
-    - ./gradlew bootJar;
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
-    - ./gradlew dockerPush;
+    - ./gradlew bootJar
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - ./gradlew dockerPush
