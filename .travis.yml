@@ -23,8 +23,8 @@ jobs:
   - stage: build and test
     script:
     - ./gradlew clean test
-  - if: (NOT type IN (pull_request)) AND (branch = master)
+  - if: (branch = master)
     script:
     - ./gradlew bootJar;
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
     - ./gradlew dockerPush;
