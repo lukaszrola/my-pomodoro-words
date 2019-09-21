@@ -20,6 +20,6 @@ dependencies {
 }
 
 docker {
-	name 'rolalukasz1992/my-pomodoro-question-words:' + version
+	name 'rolalukasz1992/my-pomodoro-words:' + version
 	copySpec.from("build/libs").into("build/libs")
 }
