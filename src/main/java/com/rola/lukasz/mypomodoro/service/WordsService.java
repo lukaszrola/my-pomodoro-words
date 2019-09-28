@@ -12,12 +12,12 @@ public class WordsService {
                 ChoiceQuestion.builder()
                         .answer("pies")
                         .question("dog")
-                        .variants(List.of("pies", "koń", "krowa"))
+                        .variants(List.of("kot", "koń", "krowa"))
                         .build(),
                 ChoiceQuestion.builder()
                         .answer("jabłko")
                         .question("apple")
-                        .variants(List.of("koza", "jabłko", "wiśnia", "drzewo"))
+                        .variants(List.of("koza","wiśnia", "drzewo"))
                         .build());
     }
 
