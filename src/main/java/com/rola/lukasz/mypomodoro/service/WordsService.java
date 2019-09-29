@@ -1,6 +1,7 @@
 package com.rola.lukasz.mypomodoro.service;
 
-import com.rola.lukasz.mypomodoro.model.ChoiceQuestion;
+import com.rola.lukasz.mypomodoro.controller.ChoiceQuestion;
+import com.rola.lukasz.mypomodoro.controller.WritingQuestion;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +33,18 @@ public class WordsService {
                         .answer("apple")
                         .question("jabłko")
                         .variants(List.of("cherry", "pineaple", "blueberry"))
+                        .build());
+    }
+
+    public List<WritingQuestion> getWritingQuestions(Integer numberOfWords) {
+        return List.of(
+                WritingQuestion.builder()
+                        .question("praca")
+                        .validAnswers(List.of("job","work","occupation"))
+                        .build(),
+                WritingQuestion.builder()
+                        .question("szewc")
+                        .validAnswers(List.of("shoemaker","cobbler"))
                         .build());
     }
 }

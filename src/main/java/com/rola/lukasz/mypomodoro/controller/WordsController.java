@@ -1,6 +1,5 @@
 package com.rola.lukasz.mypomodoro.controller;
 
-import com.rola.lukasz.mypomodoro.model.ChoiceQuestion;
 import com.rola.lukasz.mypomodoro.service.WordsService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,5 +32,11 @@ public class WordsController {
     @CrossOrigin(origins = CorsConfiguration.ALL)
     public List<ChoiceQuestion> getForeignLanguageChoiceQuestions(@RequestParam Integer numberOfWords) {
        return wordsService.getForeignLanguageChoiceQuestions(numberOfWords);
+    }
+
+    @GetMapping("/writingQuestions")
+    @CrossOrigin(origins = CorsConfiguration.ALL)
+    public List<WritingQuestion> getWritingQuestions(@RequestParam Integer numberOfWords){
+        return wordsService.getWritingQuestions(numberOfWords);
     }
 }
