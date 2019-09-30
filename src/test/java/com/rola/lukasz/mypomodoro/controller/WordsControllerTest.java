@@ -1,7 +1,6 @@
 package com.rola.lukasz.mypomodoro.controller;
 
 import com.google.gson.Gson;
-import com.rola.lukasz.mypomodoro.model.ChoiceQuestion;
 import com.rola.lukasz.mypomodoro.service.WordsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +18,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(WordsController.class)
-public class WordsControllerTest {
+class WordsControllerTest {
 
     private static final String MOTHER_LANGUAGE_CHOICE_QUESTIONS_URL = "/motherLanguageChoiceQuestions?numberOfWords=2";
     private static final String FOREIGN_LANGUAGE_CHOICE_QUESTIONS_URL = "/foreignLanguageChoiceQuestions?numberOfWords=2";
+    private static final String WRITING_QUESTIONS_URL = "/writingQuestions?numberOfWords=2";
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @MockBean
     private WordsService wordsService;
@@ -51,6 +51,20 @@ public class WordsControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
         List<ChoiceQuestion> expectedResponse = foreignLanguageChoiceResponse();
         when(wordsService.getForeignLanguageChoiceQuestions(2))
+                .thenReturn(expectedResponse);
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(status().isOk())
+                .andExpect(content().json(new Gson().toJson(expectedResponse)));
+    }
+
+    @Test
+    void getWritingQuestions() throws Exception {
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get(WRITING_QUESTIONS_URL)
+                .accept(MediaType.APPLICATION_JSON);
+        List<WritingQuestion> expectedResponse = writingQuestions(2);
+        when(wordsService.getWritingQuestions(2))
                 .thenReturn(expectedResponse);
 
         mockMvc.perform(requestBuilder)
@@ -84,6 +98,18 @@ public class WordsControllerTest {
                         .answer("apple")
                         .question("jabłko")
                         .variants(List.of("cherry", "pineaple", "blueberry"))
+                        .build());
+    }
+
+    private List<WritingQuestion> writingQuestions(Integer numberOfWords) {
+        return List.of(
+                WritingQuestion.builder()
+                        .question("praca")
+                        .validAnswers(List.of("job","work","occupation"))
+                        .build(),
+                WritingQuestion.builder()
+                        .question("szewc")
+                        .validAnswers(List.of("shoemaker","cobbler"))
                         .build());
     }
 }
