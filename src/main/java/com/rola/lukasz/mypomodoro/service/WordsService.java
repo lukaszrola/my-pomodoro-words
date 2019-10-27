@@ -2,49 +2,64 @@ package com.rola.lukasz.mypomodoro.service;
 
 import com.rola.lukasz.mypomodoro.controller.ChoiceQuestion;
 import com.rola.lukasz.mypomodoro.controller.WritingQuestion;
+import com.rola.lukasz.mypomodoro.model.Word;
+import com.rola.lukasz.mypomodoro.repository.WordRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class WordsService {
+    private final WordRepository wordRepository;
+
     public List<ChoiceQuestion> getMotherLanguageChoiceQuestions(Integer numberOfWords) {
-        return List.of(
-                ChoiceQuestion.builder()
-                        .answer("pies")
-                        .question("dog")
-                        .variants(List.of("kot", "koń", "krowa"))
-                        .build(),
-                ChoiceQuestion.builder()
-                        .answer("jabłko")
-                        .question("apple")
-                        .variants(List.of("koza","wiśnia", "drzewo"))
-                        .build());
+        if (numberOfWordsIsInvalid(numberOfWords))
+            return List.of();
+
+        List<Word> words = new ArrayList<>(wordRepository.getWords());
+        Collections.shuffle(words);
+
+        return words
+                .stream()
+                .map(word -> ChoiceQuestion.buildMotherLanguageChoiceQestion(word, words))
+                .limit(numberOfWords)
+                .collect(Collectors.toList());
     }
 
     public List<ChoiceQuestion> getForeignLanguageChoiceQuestions(Integer numberOfWords) {
-        return List.of(
-                ChoiceQuestion.builder()
-                        .answer("dog")
-                        .question("pies")
-                        .variants(List.of("mouse", "cat", "bird"))
-                        .build(),
-                ChoiceQuestion.builder()
-                        .answer("apple")
-                        .question("jabłko")
-                        .variants(List.of("cherry", "pineaple", "blueberry"))
-                        .build());
+        if (numberOfWordsIsInvalid(numberOfWords))
+            return List.of();
+
+        List<Word> words = new ArrayList<>(wordRepository.getWords());
+        Collections.shuffle(words);
+
+        return words
+                .stream()
+                .map(word -> ChoiceQuestion.buildForeignLanguageChoiceQestion(word, words))
+                .limit(numberOfWords)
+                .collect(Collectors.toList());
     }
 
     public List<WritingQuestion> getWritingQuestions(Integer numberOfWords) {
-        return List.of(
-                WritingQuestion.builder()
-                        .question("praca")
-                        .validAnswers(List.of("job","work","occupation"))
-                        .build(),
-                WritingQuestion.builder()
-                        .question("szewc")
-                        .validAnswers(List.of("shoemaker","cobbler"))
-                        .build());
+        if (numberOfWordsIsInvalid(numberOfWords))
+            return List.of();
+
+        List<Word> words = new ArrayList<>(wordRepository.getWords());
+        Collections.shuffle(words);
+
+        return words
+                .stream()
+                .map(WritingQuestion::buildWritingQuestion)
+                .limit(numberOfWords)
+                .collect(Collectors.toList());
+    }
+
+    private boolean numberOfWordsIsInvalid(Integer numberOfWords) {
+        return numberOfWords <= 0;
     }
 }
