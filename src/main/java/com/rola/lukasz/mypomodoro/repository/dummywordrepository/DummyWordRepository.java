@@ -1,15 +1,14 @@
-package com.rola.lukasz.mypomodoro.repository;
+package com.rola.lukasz.mypomodoro.repository.dummywordrepository;
 
-import com.rola.lukasz.mypomodoro.model.DummyWord;
-import com.rola.lukasz.mypomodoro.model.Word;
+import com.rola.lukasz.mypomodoro.repository.WordRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class DummyWordRepository implements WordRepository {
+class DummyWordRepository implements WordRepository {
     @Override
-    public List<Word> getWords() {
+    public List<DummyWord> getWords() {
 
         return List.of(
                 DummyWord

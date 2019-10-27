@@ -5,5 +5,5 @@ import com.rola.lukasz.mypomodoro.model.Word;
 import java.util.List;
 
 public interface WordRepository {
-    List<Word> getWords();
+    List<? extends Word> getWords();
 }

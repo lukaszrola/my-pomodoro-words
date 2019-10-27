@@ -2,41 +2,32 @@ package com.rola.lukasz.mypomodoro.service;
 
 import com.rola.lukasz.mypomodoro.controller.ChoiceQuestion;
 import com.rola.lukasz.mypomodoro.controller.WritingQuestion;
-import com.rola.lukasz.mypomodoro.model.DummyWord;
-import com.rola.lukasz.mypomodoro.model.Word;
+import com.rola.lukasz.mypomodoro.repository.TestWord;
 import com.rola.lukasz.mypomodoro.repository.WordRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.lenient;
 
-@ExtendWith(MockitoExtension.class)
+
 class WordsServiceTest {
     private static final String MOTHER_MEANING = "motherMeaning";
     private static final String FOREIGN_MEANING = "foreignMeaning";
 
-    @Mock
     private WordRepository wordRepository;
-    @InjectMocks
     private WordsService wordsService;
 
     @BeforeEach
     void setUp() {
-        List<Word> words = List.of(
-                buildWord("foreignMeaning1", "motherMeaning1"),
-                buildWord("foreignMeaning2", "motherMeaning2"),
-                buildWord("foreignMeaning3", "motherMeaning3"),
-                buildWord("foreignMeaning4", "motherMeaning4"));
+        wordRepository = () -> List.of(
+                 new TestWord("foreignMeaning1", "motherMeaning1"),
+                 new TestWord("foreignMeaning2", "motherMeaning2"),
+                 new TestWord("foreignMeaning3", "motherMeaning3"),
+                 new TestWord("foreignMeaning4", "motherMeaning4"));
 
-        lenient().when(wordRepository.getWords()).thenReturn(words);
+        wordsService = new WordsService(wordRepository);
     }
 
     @Test
@@ -84,13 +75,5 @@ class WordsServiceTest {
         List<WritingQuestion> writingQuestions = wordsService.getWritingQuestions(-1);
 
         assertThat(writingQuestions).isEmpty();
-    }
-
-    private DummyWord buildWord(String foreignMeaning, String motherMeaning) {
-        return DummyWord.builder()
-                .foreignMeaning(foreignMeaning)
-                .motherMeaning(motherMeaning)
-                .synonymous(List.of())
-                .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.rola.lukasz.mypomodoro.controller;
 
-import com.rola.lukasz.mypomodoro.model.DummyWord;
+import com.rola.lukasz.mypomodoro.model.Word;
+import com.rola.lukasz.mypomodoro.repository.TestWord;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,8 +16,8 @@ class WritingQuestionTest {
     private static final String SYNONYM_2 = "synonym2";
 
     @Test
-    void WritingQuetionTest() {
-        DummyWord word = DummyWord.builder()
+    void writingQuestionTest() {
+        Word word = TestWord.builder()
                 .motherMeaning(MOTHER_MEANING)
                 .foreignMeaning(FOREIGN_MEANING)
                 .synonymous(List.of(SYNONYM_1, SYNONYM_2))

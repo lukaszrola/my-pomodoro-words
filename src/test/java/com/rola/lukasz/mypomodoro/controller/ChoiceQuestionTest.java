@@ -1,7 +1,7 @@
 package com.rola.lukasz.mypomodoro.controller;
 
-import com.rola.lukasz.mypomodoro.model.DummyWord;
 import com.rola.lukasz.mypomodoro.model.Word;
+import com.rola.lukasz.mypomodoro.repository.TestWord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +16,10 @@ class ChoiceQuestionTest {
     @BeforeEach
     void setUp(){
         words = List.of(
-                buildWord("foreignMeaning1", "motherMeaning1"),
-                buildWord("foreignMeaning2", "motherMeaning2"),
-                buildWord("foreignMeaning3", "motherMeaning3"),
-                buildWord("foreignMeaning4", "motherMeaning4"));
+                new TestWord("foreignMeaning1", "motherMeaning1"),
+                new TestWord("foreignMeaning2", "motherMeaning2"),
+                new TestWord("foreignMeaning3", "motherMeaning3"),
+                new TestWord("foreignMeaning4", "motherMeaning4"));
     }
 
     @Test
@@ -42,12 +42,5 @@ class ChoiceQuestionTest {
         assertThat(choiceQuestion.getAnswer()).isEqualTo(firstWord.getMotherMeaning());
         assertThat(choiceQuestion.getQuestion()).isEqualTo(firstWord.getForeignMeaning());
         assertThat(choiceQuestion.getVariants()).containsExactlyInAnyOrder("motherMeaning2","motherMeaning3","motherMeaning4");
-    }
-
-    private DummyWord buildWord(String foreignMeaning, String motherMeaning) {
-        return DummyWord.builder()
-                .foreignMeaning(foreignMeaning)
-                .motherMeaning(motherMeaning)
-                .build();
     }
 }

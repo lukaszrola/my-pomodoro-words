@@ -1,11 +1,12 @@
-package com.rola.lukasz.mypomodoro.model;
+package com.rola.lukasz.mypomodoro.repository.dummywordrepository;
 
+import com.rola.lukasz.mypomodoro.model.Word;
 import lombok.Builder;
 
 import java.util.List;
 
 @Builder
-public class DummyWord implements Word {
+class DummyWord implements Word {
     private final String motherMeaning;
     private final String foreignMeaning;
     private final List<String> synonymous;
