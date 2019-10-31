@@ -1,11 +1,13 @@
 package com.rola.lukasz.mypomodoro.repository.dummywordrepository;
 
 import com.rola.lukasz.mypomodoro.repository.WordRepository;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@ConditionalOnProperty(value = "mypomodoro.wordrepository", havingValue = "dummyWordRepository")
 class DummyWordRepository implements WordRepository {
     @Override
     public List<DummyWord> getWords() {

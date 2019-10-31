@@ -1,0 +1,1 @@
+insert into word (id, foreign_meaning, mother_meaning, synonymous) values (1,'work','praca','job;occupation');
