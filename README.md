@@ -16,6 +16,15 @@ Newest version of application is deployed on heroku:
 
 ##Run application in IntelliJ
 Application can be imported to IntelliJ as a gradle project and run as SpringBoot application.
+Component is using `PostgreSQL` as a data storage and need it to correct work.
+
+There is need to provide following
+properties:
+* spring.datasource.url
+* spring.datasource.username
+* spring.datasource.password
+
+They could be applied in application.properties or as environment variables. 
 
 ##Build and run application as a docker container
 Execute following commands
