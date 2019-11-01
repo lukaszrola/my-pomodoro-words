@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Converter
-class StringListConverter implements AttributeConverter<List<String>, String> {
+public class StringListConverter implements AttributeConverter<List<String>, String> {
 
     @Override
     public String convertToDatabaseColumn(List<String> attribute) {

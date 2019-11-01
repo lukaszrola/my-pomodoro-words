@@ -24,8 +24,17 @@ class JpaWordRepositoryTest {
     void addWord() {
         List<? extends Word> words = jpWordRepository.getWords();
 
-        assertThat(words).hasSize(1);
-        Word firstWord = words.get(0);
+        assertThat(words).hasSize(6);
+        assertWordWork(words);
+    }
+
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    private void assertWordWork(List<? extends Word> words) {
+        Word firstWord = words.
+                stream()
+                .filter(word -> word.getForeignMeaning().equals("work"))
+                .findFirst()
+                .get();
         assertThat(firstWord.getForeignMeaning()).isEqualTo("work");
         assertThat(firstWord.getMotherMeaning()).isEqualTo("praca");
         assertThat(firstWord.getSynonymous()).containsExactlyInAnyOrder("job", "occupation");
