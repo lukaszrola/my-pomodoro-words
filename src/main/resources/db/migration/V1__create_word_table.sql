@@ -1,6 +1,6 @@
 CREATE TABLE word (
 id SERIAL unique,
-mother_meaning varchar(50) unique,
-foreign_meaning varchar(50),
-synonymous varchar (200)
+mother_meaning varchar(150) unique,
+foreign_meaning varchar(150),
+synonymous varchar (300)
 );
